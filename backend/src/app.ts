@@ -40,7 +40,8 @@ export async function buildApp(): Promise<FastifyInstance> {
   await app.register(rateLimitPlugin);
 
   // --- Phase 3: Routes ---
-  await app.register(healthRoutes);
+  await app.register(healthRoutes); // Internal ALB Health Checks (/healthz)
+  await app.register(healthRoutes, { prefix: "/api" }); // Public Health Checks (/api/healthz)
   await app.register(agentRoutes, { prefix: "/api" });
   await app.register(projectRoutes, { prefix: "/api" });
 
