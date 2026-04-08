@@ -15,6 +15,16 @@ import {
  *   - Tool usage display
  *   - Coding-specific suggestion chips
  */
+
+/** Utility to generate a safe ID, falling back for non-secure contexts (HTTP) */
+const generateId = () => {
+  try {
+    return crypto.randomUUID();
+  } catch {
+    return Math.random().toString(36).substring(2) + Date.now().toString(36);
+  }
+};
+
 export function ChatInterface({
   projectPath,
 }: {
@@ -46,7 +56,7 @@ export function ChatInterface({
     setInput("");
 
     const userMessage: ChatMessage = {
-      id: crypto.randomUUID(),
+      id: generateId(),
       role: "user",
       content: trimmed,
       timestamp: new Date(),
@@ -63,7 +73,7 @@ export function ChatInterface({
       setSessionId(result.sessionId);
 
       const assistantMessage: ChatMessage = {
-        id: crypto.randomUUID(),
+        id: generateId(),
         role: "assistant",
         content: result.response,
         toolsUsed: result.toolsUsed,
