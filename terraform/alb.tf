@@ -73,20 +73,3 @@ resource "aws_lb_listener" "http" {
   }
 }
 
-# Optional: Add a listener rule to route /api to the backend target group 
-# (if you don't want to use the Nginx proxy in the frontend)
-resource "aws_lb_listener_rule" "api" {
-  listener_arn = aws_lb_listener.http.arn
-  priority     = 10
-
-  action {
-    type             = "forward"
-    target_group_arn = aws_lb_target_group.backend.arn
-  }
-
-  condition {
-    path_pattern {
-      values = ["/api/*"]
-    }
-  }
-}
