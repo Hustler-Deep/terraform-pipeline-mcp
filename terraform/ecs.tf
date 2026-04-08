@@ -53,7 +53,7 @@ resource "aws_ecs_task_definition" "backend" {
   container_definitions = jsonencode([
     {
       name      = "ai-agent-backend"
-      image     = "ai-agent-backend:latest" # Updated by CI/CD
+      image     = "982689565504.dkr.ecr.us-east-1.amazonaws.com/ai-agent-backend:latest" # Updated by CI/CD
       essential = true
       portMappings = [
         {
@@ -130,7 +130,7 @@ resource "aws_ecs_task_definition" "frontend" {
   container_definitions = jsonencode([
     {
       name      = "ai-agent-frontend"
-      image     = "ai-agent-frontend:latest" # Updated by CI/CD
+      image     = "982689565504.dkr.ecr.us-east-1.amazonaws.com/ai-agent-frontend:latest" # Updated by CI/CD
       essential = true
       portMappings = [
         {
