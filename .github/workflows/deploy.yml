@@ -186,8 +186,28 @@ jobs:
           echo "| Commit | ${{ github.sha }} |" >> $GITHUB_STEP_SUMMARY
           echo "| Actor | ${{ github.actor }} |" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "> **Note:** ECS task definition update and service deployment" >> $GITHUB_STEP_SUMMARY
-          echo "> will be configured once the ECS cluster and services are provisioned." >> $GITHUB_STEP_SUMMARY
-          echo "> For now, images are pushed to ECR and ready for manual deployment." >> $GITHUB_STEP_SUMMARY
-          echo "> For now, images are pushed to ECR and ready for manual deployment." >> $GITHUB_STEP_SUMMARY
+          echo "> For now, images are pushed to ECR and the ECS services are being updated." >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
+
+      - name: Download backend task definition
+        run: |
+          aws ecs describe-task-definition \
+            --task-definition ai-agent-backend \
+            --query taskDefinition \
+            > backend-task-def.json
+
+      - name: Update backend image in task definition
+        id: render-backend
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+          task-definition: backend-task-def.json
+          container-name: ai-agent-backend
+          image: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/${{ env.BACKEND_ECR_REPO }}:${{ github.sha }}
+
+      - name: Deploy backend to ECS
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v2
+        with:
+          task-definition: ${{ steps.render-backend.outputs.task-definition }}
+          service: ai-agent-backend-service
+          cluster: ai-agent-cluster
+          wait-for-service-stability: true
