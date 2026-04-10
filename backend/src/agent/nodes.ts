@@ -1,5 +1,6 @@
 // import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
 import { ChatOpenAI } from "@langchain/openai";
+import { ChatOllama } from "@langchain/ollama";
 import { ToolNode } from "@langchain/langgraph/prebuilt";
 import type { AgentStateType } from "./state.js";
 import type { EnvConfig } from "../config/env.js";
@@ -67,7 +68,6 @@ export function createCodingLLM(config: EnvConfig) {
       break;
 
     case "ollama":
-      const { ChatOllama } = await import("@langchain/ollama");
       llm = new ChatOllama({
         model: config.OLLAMA_MODEL,
         baseUrl: config.OLLAMA_BASE_URL.replace("/v1", ""), // Native API uses host:port base
