@@ -36,7 +36,8 @@ resource "aws_iam_role_policy" "ecs_task_execution_ssm_policy" {
           "kms:Decrypt"
         ]
         Resource = [
-          aws_ssm_parameter.google_api_key.arn
+          aws_ssm_parameter.google_api_key.arn,
+          aws_ssm_parameter.groq_api_key.arn
         ]
       }
     ]
