@@ -16,12 +16,17 @@ export const envSchema = {
       default: "development",
       enum: ["development", "production", "test"],
     },
+    // LLM Provider Switch
+    LLM_PROVIDER: { type: "string", default: "ollama", enum: ["gemini", "groq", "ollama"] },
     // Google Gemini
     GOOGLE_API_KEY: { type: "string" },
     GEMINI_MODEL: { type: "string", default: "gemini-3-pro-preview" },
     // Groq / OpenAI-Compatible
     GROQ_API_KEY: { type: "string" },
     GROQ_MODEL: { type: "string", default: "llama-3.3-70b-versatile" },
+    // Ollama (Local)
+    OLLAMA_MODEL: { type: "string", default: "llama3:latest" },
+    OLLAMA_BASE_URL: { type: "string", default: "http://localhost:11434/v1" },
     // AWS
     AWS_REGION: { type: "string", default: "us-east-1" },
     DYNAMODB_TABLE_NAME: {
@@ -38,10 +43,13 @@ export interface EnvConfig {
   PORT: number;
   HOST: string;
   NODE_ENV: "development" | "production" | "test";
+  LLM_PROVIDER: "gemini" | "groq" | "ollama";
   GOOGLE_API_KEY?: string;
   GEMINI_MODEL: string;
   GROQ_API_KEY?: string;
   GROQ_MODEL: string;
+  OLLAMA_MODEL: string;
+  OLLAMA_BASE_URL: string;
   AWS_REGION: string;
   DYNAMODB_TABLE_NAME: string;
   RATE_LIMIT_MAX: number;
