@@ -71,7 +71,10 @@ resource "aws_ecs_task_definition" "backend" {
       environment = [
         { name = "NODE_ENV", value = "production" },
         { name = "PORT", value = "3001" },
-        { name = "AWS_REGION", value = "us-east-1" }
+        { name = "AWS_REGION", value = "us-east-1" },
+        { name = "LLM_PROVIDER", value = "ollama" },
+        { name = "OLLAMA_MODEL", value = "llama3:latest" },
+        { name = "OLLAMA_BASE_URL", value = "http://192.168.0.94:11434/v1" }
       ]
       secrets = [
         {
