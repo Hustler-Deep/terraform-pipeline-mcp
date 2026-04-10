@@ -73,7 +73,7 @@ resource "aws_ecs_task_definition" "backend" {
         { name = "PORT", value = "3001" },
         { name = "AWS_REGION", value = "us-east-1" },
         { name = "LLM_PROVIDER", value = "ollama" },
-        { name = "OLLAMA_MODEL", value = "llama3:latest" },
+        { name = "OLLAMA_MODEL", value = "llama3.1:8b" },
         { name = "OLLAMA_BASE_URL", value = "https://ramona-ladylike-enduringly.ngrok-free.dev" }
       ]
       secrets = [
