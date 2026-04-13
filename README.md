@@ -1,4 +1,4 @@
-# 🤖 AI Agent Learning
+# 🤖 Terraform Pipeline MCP — CI/CD Pipeline
 
 A production-grade AI Agent application built with a **Skills-First** architecture using the Model Context Protocol (MCP) and LangGraph.js for orchestration.
 
@@ -54,8 +54,8 @@ A production-grade AI Agent application built with a **Skills-First** architectu
 
 ```bash
 # Clone the repo
-git clone https://github.com/deepakabari/ai-agent-learning.git
-cd ai-agent-learning
+git clone https://github.com/Hustler-Deep/terraform-pipeline-mcp.git
+cd terraform-pipeline-mcp
 
 # Create environment file
 cp .env.example .env
@@ -77,6 +77,22 @@ cd backend && npm run dev
 
 # Frontend (hot reload)
 cd frontend && npm run dev
+```
+
+## Infrastructure
+
+This project uses Terraform to manage AWS resources. The infrastructure includes:
+- **VPC & Networking**: Isolated subnets, Route Tables, and Internet Gateway.
+- **ECS Fargate**: Serverless container orchestration for Backend and Frontend.
+- **Application Load Balancer**: Traffic routing and SSL termination.
+- **IAM Roles**: Least-privilege roles for GitHub Actions (OIDC) and ECS Tasks.
+- **SSM Parameters**: Secure storage for API keys and database configurations.
+
+To deploy infrastructure:
+```bash
+cd terraform
+terraform init
+terraform apply
 ```
 
 ## Project Structure
