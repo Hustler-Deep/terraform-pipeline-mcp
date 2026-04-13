@@ -1,4 +1,4 @@
-// import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
+import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
 import { ChatOpenAI } from "@langchain/openai";
 import { ChatOllama } from "@langchain/ollama";
 import { ToolNode } from "@langchain/langgraph/prebuilt";
@@ -76,10 +76,15 @@ export function createCodingLLM(config: EnvConfig) {
       break;
 
     case "gemini":
-      // Dynamic import to avoid dependency issues if not using Gemini
-      // Note: In a real app we'd import this properly.
-      // For now, using what's available or throwing if not implemented.
-      throw new Error("Gemini provider integration needs @langchain/google-genai setup.");
+      if (!config.GOOGLE_API_KEY) {
+        throw new Error("Missing GOOGLE_API_KEY for Gemini provider.");
+      }
+      llm = new ChatGoogleGenerativeAI({
+        modelName: config.GEMINI_MODEL,
+        apiKey: config.GOOGLE_API_KEY,
+        temperature: 0.3,
+      });
+      break;
     
     default:
       throw new Error(`Unsupported LLM provider: ${config.LLM_PROVIDER}`);

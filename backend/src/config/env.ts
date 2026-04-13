@@ -20,7 +20,7 @@ export const envSchema = {
     LLM_PROVIDER: { type: "string", default: "ollama", enum: ["gemini", "groq", "ollama"] },
     // Google Gemini
     GOOGLE_API_KEY: { type: "string" },
-    GEMINI_MODEL: { type: "string", default: "gemini-3-pro-preview" },
+    GEMINI_MODEL: { type: "string", default: "gemini-3-flash" },
     // Groq / OpenAI-Compatible
     GROQ_API_KEY: { type: "string" },
     GROQ_MODEL: { type: "string", default: "llama-3.3-70b-versatile" },

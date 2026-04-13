@@ -37,7 +37,7 @@ A production-grade AI Agent application built with a **Skills-First** architectu
 | Backend | Node.js 24, Fastify, TypeScript |
 | Frontend | React 19, Vite, TypeScript |
 | Agent | LangGraph.js, MCP SDK |
-| LLM | Google Gemini 2.5 Flash (free tier) |
+| LLM | Google Gemini 3 Flash |
 | Database | AWS DynamoDB (perpetual free tier) |
 | Infra | AWS ECS Fargate, ECR |
 | CI/CD | GitHub Actions (OIDC) |
